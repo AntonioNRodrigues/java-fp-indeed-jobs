@@ -24,7 +24,7 @@ public class App {
   }
 
   private static void explore(List<Job> jobs) {
-    // Your amazing code below...
+    System.out.println("jobs = " + jobs);
 
   }
 }
