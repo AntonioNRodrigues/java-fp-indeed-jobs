@@ -8,23 +8,30 @@ import java.util.List;
 
 public class App {
 
-  public static void main(String[] args) {
-    JobService service = new JobService();
-    boolean shouldRefresh = false;
-    try {
-      if (shouldRefresh) {
-        service.refresh();
-      }
-      List<Job> jobs = service.loadJobs();
-      System.out.printf("Total jobs:  %d %n %n", jobs.size());
-      explore(jobs);
-    } catch (IOException e) {
-      e.printStackTrace();
+    public static void main(String[] args) {
+        JobService service = new JobService();
+        boolean shouldRefresh = false;
+        try {
+            if (shouldRefresh) {
+                service.refresh();
+            }
+            List<Job> jobs = service.loadJobs();
+            System.out.printf("Total jobs:  %d %n %n", jobs.size());
+            explore(jobs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-  }
 
-  private static void explore(List<Job> jobs) {
-    System.out.println("jobs = " + jobs);
+    private static void explore(List<Job> jobs) {
+        printPortlandJobsStream(jobs);
 
-  }
+    }
+
+    private static void printPortlandJobsStream(List<Job> jobs) {
+        jobs.stream()
+                .filter(job -> job.getState().equals("OR"))
+                .filter(job -> job.getCity().equals("Portland"))
+                .forEach(System.out::println);
+    }
 }
